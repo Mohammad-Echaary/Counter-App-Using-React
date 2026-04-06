@@ -6,6 +6,7 @@ export default function CounterApp() {
   const safeCount = Math.max(0, count);
   const value = safeCount < 10 ? `0${safeCount}` : safeCount;
   const [isAuto, setIsAuto] = useState(null);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     if (!isAuto) return;
@@ -29,9 +30,23 @@ export default function CounterApp() {
     setCount(0);
   }
 
+  function handleTheme() {
+    setIsDark((prev) => !prev);
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300">
-      <div className="bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl p-10 w-[750px] border border-gray-200">
+    <div
+      className={`min-h-screen flex items-center justify-center ${isDark ? "bg-gray-900" : "bg-white"}`}
+    >
+      <div className="relative bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl p-10 w-[750px] border border-gray-200">
+        <button
+          className="absolute top-5 right-5 cursor-pointer text-xl py-3 px-6
+rounded-xl transition-all duration-200 active:scale-95
+shadow-md hover:shadow-lg"
+          onClick={handleTheme}
+        >
+          {isDark ? "Dark" : "Light"}
+        </button>
         <h1 className="text-5xl font-bold tracking-wide mb-10 text-gray-800 text-center">
           Counter App
         </h1>
